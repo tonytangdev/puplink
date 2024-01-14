@@ -1,0 +1,22 @@
+org: tonytangdeveloper
+app: puplink
+service: puplink
+frameworkVersion: '3'
+
+useDotenv: true
+
+plugins:
+  - serverless-esbuild
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-west-3
+
+functions:
+  upload:
+    handler: src/handlers/upload.handler
+    events:
+      - httpApi:
+          path: /upload
+          method: post
