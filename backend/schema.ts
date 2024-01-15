@@ -12,3 +12,8 @@ export const files = pgTable("files", {
 export const insertFileSchema = createInsertSchema(files);
 
 export const selectFileSchema = createSelectSchema(files);
+
+export const updateFileSchema = createInsertSchema(files).pick({
+  updatedAt: true,
+  openedAt: true,
+});

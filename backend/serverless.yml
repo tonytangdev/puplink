@@ -38,6 +38,12 @@ functions:
       - httpApi:
           path: /upload
           method: post
+  destroy:
+    handler: src/handlers/destroy.handler
+    events:
+      - httpApi:
+          path: /destroy
+          method: post
 
 resources:
   Resources:
