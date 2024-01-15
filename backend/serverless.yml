@@ -15,13 +15,16 @@ provider:
   environment:
     REGION: ${self:provider.region}
     ENVIRONMENT: ${env:ENVIRONMENT}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-        - s3:DeleteObject
-      Resource: "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}/*"
+    SUPBASE_DB_URL: ${env:SUPBASE_DB_URL}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:DeleteObject
+          Resource: "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}/*"
 
 custom:
   bucketName: puplink-bucket-${env:ENVIRONMENT}
