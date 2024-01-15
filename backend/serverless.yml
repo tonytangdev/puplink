@@ -12,6 +12,9 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: eu-west-3
+  environment:
+    REGION: ${self:provider.region}
+    ENVIRONMENT: ${env:ENVIRONMENT}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -20,16 +23,18 @@ provider:
         - s3:DeleteObject
       Resource: "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}/*"
 
+custom:
+  bucketName: puplink-bucket-${env:ENVIRONMENT}
+
 functions:
   upload:
     handler: src/handlers/upload.handler
+    environment:
+      BUCKET_NAME: ${self:custom.bucketName}
     events:
       - httpApi:
           path: /upload
           method: post
-
-custom:
-  bucketName: puplink-bucket-${env:ENVIRONMENT}
 
 resources:
   Resources:
