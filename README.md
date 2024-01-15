@@ -33,9 +33,9 @@ To get started with PupLink, follow these simple steps:
 ## Roadmap
 
 #### Configuring S3 with Serverless
-- [ ] **Define S3 Bucket in serverless.yml**
-  - [ ] Add S3 bucket configuration in the `serverless.yml` file.
-  - [ ] Set up necessary IAM role permissions for bucket access.
+- [x] **Define S3 Bucket in serverless.yml**
+  - [x] Add S3 bucket configuration in the `serverless.yml` file.
+  - [x] Set up necessary IAM role permissions for bucket access.
 
 #### Developing Lambda Functions with Serverless
 

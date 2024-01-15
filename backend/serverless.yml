@@ -1,7 +1,7 @@
 org: tonytangdeveloper
 app: puplink
 service: puplink
-frameworkVersion: '3'
+frameworkVersion: "3"
 
 useDotenv: true
 
@@ -12,6 +12,13 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: eu-west-3
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+        - s3:DeleteObject
+      Resource: "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}/*"
 
 functions:
   upload:
@@ -20,3 +27,24 @@ functions:
       - httpApi:
           path: /upload
           method: post
+
+custom:
+  bucketName: puplink-bucket-${env:ENVIRONMENT}
+
+resources:
+  Resources:
+    PuplinkBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketName}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - "*"
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+              AllowedHeaders:
+                - "*"
