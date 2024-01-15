@@ -40,11 +40,10 @@ To get started with PupLink, follow these simple steps:
 #### Developing Lambda Functions with Serverless
 
 ##### Lambda for Image Upload
-- [ ] **Configure Upload Function in serverless.yml**
-  - [ ] Define the details of the upload function in `serverless.yml` (name, trigger events, etc.).
-- [ ] **Develop and Test Upload Function**
-  - [ ] Write the upload function code.
-  - [ ] Test locally using Serverless Offline plugin (if applicable).
+- [x] **Configure Upload Function in serverless.yml**
+  - [x] Define the details of the upload function in `serverless.yml` (name, trigger events, etc.).
+- [x] **Develop and Test Upload Function**
+  - [x] Write the upload function code.
 
 ##### Lambda for URL Generation
 - [ ] **Configure URL Generation Function in serverless.yml**
