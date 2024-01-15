@@ -46,11 +46,11 @@ To get started with PupLink, follow these simple steps:
   - [x] Write the upload function code.
 
 ##### Lambda for URL Generation
-- [ ] **Configure URL Generation Function in serverless.yml**
-  - [ ] Define the details of the URL generation function in `serverless.yml`.
-- [ ] **Develop and Test URL Generation Function**
-  - [ ] Write the URL generation function code.
-  - [ ] Perform local testing.
+- [x] **Configure URL Generation Function in serverless.yml**
+  - [x] Define the details of the URL generation function in `serverless.yml`.
+- [x] **Develop and Test URL Generation Function**
+  - [x] Write the URL generation function code.
+  - [x] Perform local testing.
 
 ##### Lambda for URL Destruction
 - [ ] **Configure URL Destruction Function in serverless.yml**
