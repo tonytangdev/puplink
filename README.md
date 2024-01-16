@@ -30,45 +30,6 @@ To get started with PupLink, follow these simple steps:
 
 - Details about setting up the development environment for contributors.
 
-## Roadmap
-
-#### Configuring S3 with Serverless
-- [x] **Define S3 Bucket in serverless.yml**
-  - [x] Add S3 bucket configuration in the `serverless.yml` file.
-  - [x] Set up necessary IAM role permissions for bucket access.
-
-#### Developing Lambda Functions with Serverless
-
-##### Lambda for Image Upload
-- [x] **Configure Upload Function in serverless.yml**
-  - [x] Define the details of the upload function in `serverless.yml` (name, trigger events, etc.).
-- [x] **Develop and Test Upload Function**
-  - [x] Write the upload function code.
-
-##### Lambda for URL Generation
-- [x] **Configure URL Generation Function in serverless.yml**
-  - [x] Define the details of the URL generation function in `serverless.yml`.
-- [x] **Develop and Test URL Generation Function**
-  - [x] Write the URL generation function code.
-  - [x] Perform local testing.
-
-##### Lambda for URL Destruction
-- [ ] **Configure URL Destruction Function in serverless.yml**
-  - [ ] Add the configuration of the URL destruction function in `serverless.yml`.
-- [ ] **Develop and Test URL Destruction Function**
-  - [ ] Implement the logic for marking or deleting the URL.
-  - [ ] Perform local testing.
-
-#### Deployment
-- [ ] **Deploy Service with Serverless Framework**
-  - [ ] Use the `serverless deploy` command to deploy the entire service (S3, Lambda functions).
-  - [ ] Verify proper setup on AWS cloud.
-
-#### Post-Deployment Testing
-- [ ] **Test Functions in Production Environment**
-  - [ ] Validate the functioning of Lambda functions in the production environment.
-  - [ ] Test integration with the S3 bucket.
-
 ## Contributing
 
 We welcome contributions to PupLink! Please read our contributing guidelines to get started.
