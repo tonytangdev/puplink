@@ -9,6 +9,9 @@ export const handler: Handler<APIGatewayProxyEventV2> = async (event) => {
   if (!body) {
     return {
       statusCode: 400,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
       body: JSON.stringify({
         message: "No file provided",
       }),
@@ -27,11 +30,23 @@ export const handler: Handler<APIGatewayProxyEventV2> = async (event) => {
 
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        message: "File uploaded successfully",
+        data: {
+          id,
+        },
+      }),
     };
   } catch (error) {
     console.error(error);
     return {
       statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
       body: JSON.stringify({
         message: "Something went wrong",
       }),
