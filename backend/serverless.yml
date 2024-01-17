@@ -44,6 +44,14 @@ functions:
       - httpApi:
           path: /destroy
           method: post
+  setupUpload:
+    handler: src/handlers/setupUpload.handler
+    environment:
+      BUCKET_NAME: ${self:custom.bucketName}
+    events:
+      - httpApi:
+          path: /setup-upload
+          method: post
 
 resources:
   Resources:
