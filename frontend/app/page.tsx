@@ -12,7 +12,7 @@ export default function Home() {
     const file = document.querySelector<HTMLInputElement>('#file-upload')?.files?.[0]
     if (!file) return
 
-    const filetToBase64 = await new Promise<string>((resolve, reject) => {
+    const fileToBase64 = await new Promise<string>((resolve, reject) => {
       const reader = new FileReader()
       reader.readAsDataURL(file)
       reader.onload = () => resolve(reader.result as string)
@@ -21,10 +21,9 @@ export default function Home() {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL!}/upload`, {
       method: 'POST',
-      body: filetToBase64,
+      body: fileToBase64,
     })
-    const { data: { id }
-    } = await res.json()
+    const { data: { id } } = await res.json()
 
     setUrl(id)
   }
