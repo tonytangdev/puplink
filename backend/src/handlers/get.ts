@@ -26,6 +26,17 @@ export const handler: Handler<APIGatewayProxyEventV2> = async (event) => {
 
   try {
     const file = await getFile(fileId);
+    if (file.maxOpeningReached) {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          message: "Max opening reached",
+        }),
+      };
+    }
 
     const url = await generateDownloadSignedUrl(fileId, file.fileType);
 
