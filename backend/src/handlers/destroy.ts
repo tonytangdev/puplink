@@ -1,28 +1,44 @@
 import { APIGatewayProxyEventV2, Handler } from "aws-lambda";
-import { updateFile } from "../helpers/file";
+import {
+  createOpening,
+  getFile,
+  getNumberOfOpenings,
+  updateFile,
+} from "../helpers/file";
+import { v4 as uuidv4 } from "uuid";
 
-type Body = {
+type Event = {
   fileId: string;
 };
 
-export const handler: Handler<APIGatewayProxyEventV2> = async (event) => {
-  const { body } = event;
-  if (!body) {
-    return {
-      statusCode: 400,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        message: "No file provided",
-      }),
-    };
-  }
-
+export const handler: Handler<APIGatewayProxyEventV2 & Event> = async (
+  event
+) => {
   try {
-    const { fileId } = JSON.parse(body) as Body;
+    const { fileId } = event;
+    if (!fileId) {
+      return {
+        statusCode: 400,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          message: "No file provided",
+        }),
+      };
+    }
 
-    await updateFile(fileId);
+    const value = await getNumberOfOpenings(fileId);
+    const numberOfOpenings = value[0].value + 1;
+    const file = await getFile(fileId);
+    const maxOpenings = file.maxOpenings;
+
+    const id = uuidv4(); // should always be unique
+    await createOpening(id, fileId);
+
+    if (numberOfOpenings === maxOpenings) {
+      await updateFile(fileId, true);
+    }
 
     return {
       statusCode: 200,

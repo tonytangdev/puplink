@@ -21,10 +21,15 @@ provider:
       statements:
         - Effect: Allow
           Action:
-            - s3:PutObject
-            - s3:GetObject
-            - s3:DeleteObject
-          Resource: "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}/*"
+            - s3:*
+          Resource: 
+            - "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}/*"
+            - "arn:aws:s3:::puplink-bucket-${env:ENVIRONMENT}"
+        - Effect: Allow
+          Action:
+            - lambda:InvokeFunction
+            - lambda:InvokeAsync
+          Resource: "arn:aws:lambda:${self:provider.region}:*:function:${self:service}-${sls:stage}-destroy"
 
 custom:
   bucketName: puplink-bucket-${env:ENVIRONMENT}
@@ -40,9 +45,14 @@ functions:
           method: post
   destroy:
     handler: src/handlers/destroy.handler
+  get:
+    handler: src/handlers/get.handler
+    environment:
+      DESTROY_LAMBDA: ${self:service}-${sls:stage}-destroy
+      BUCKET_NAME: ${self:custom.bucketName}
     events:
       - httpApi:
-          path: /destroy
+          path: /get
           method: post
   setupUpload:
     handler: src/handlers/setupUpload.handler
