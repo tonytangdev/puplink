@@ -7,7 +7,7 @@ import { useState } from 'react'
 export default function Home() {
   const [url, setUrl] = useState("")
 
-  const upload: React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const upload: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     const file = document.querySelector<HTMLInputElement>('#file-upload')?.files?.[0]
     if (!file) return
@@ -25,7 +25,12 @@ export default function Home() {
     })
     const { data: { id } } = await res.json()
 
-    setUrl(id)
+    const horstname = window.location.hostname
+    const protocol = window.location.protocol
+    const port = window.location.port
+    const url = `${protocol}//${horstname}${port ? `:${port}` : ""}/${id}`
+
+    setUrl(url)
   }
 
   return (

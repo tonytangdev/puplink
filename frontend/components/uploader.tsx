@@ -7,11 +7,11 @@
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { FormEventHandler, useState } from "react"
+import { MouseEventHandler, useState } from "react"
 
 type Props = {
   url?: string,
-  onUpload: FormEventHandler<HTMLFormElement>
+  onUpload: MouseEventHandler<HTMLButtonElement>
 }
 
 export function Uploader({
@@ -20,45 +20,44 @@ export function Uploader({
 }: Props) {
   const [copyText, setCopyText] = useState("Copy Link")
 
-  const onCopy = () => {
+  const onCopy: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
     navigator.clipboard.writeText(url!)
     setCopyText("Copied!")
   }
 
   return (
-    <form onSubmit={onUpload}>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-        <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
-          <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">Upload Your File</h2>
-          <div className="grid w-full gap-2">
-            <Label htmlFor="file-upload">Select a file</Label>
-            <Input className="px-4 py-2 file:text-white" id="file-upload" type="file" />
+    <form>
+      <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 rounded-xl shadow-md">
+        <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-gray-100">Upload Your File</h2>
+        <div className="grid w-full gap-2">
+          <Label htmlFor="file-upload">Select a file</Label>
+          <Input className="px-4 py-2 file:text-white" id="file-upload" type="file" />
+        </div>
+        <div className="relative pt-1">
+          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
+            <div
+              className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
+              style={{
+                width: "30%",
+              }}
+            />
           </div>
-          <div className="relative pt-1">
-            <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200 dark:bg-gray-700">
-              <div
-                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
-                style={{
-                  width: "30%",
-                }}
-              />
-            </div>
-            <p className="text-sm text-center text-gray-500 dark:text-gray-400">30% uploaded</p>
-          </div>
-          <div className="flex items-center justify-between">
-            {!url ? (
-              <Button className="flex-1" type="submit">
-                Upload
+          <p className="text-sm text-center text-gray-500 dark:text-gray-400">30% uploaded</p>
+        </div>
+        <div className="flex items-center justify-between">
+          {!url ? (
+            <Button className="flex-1" onClick={onUpload}>
+              Upload
+            </Button>
+          ) : (
+            <>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{url}</p>
+              <Button className="text-sm" variant="outline" onClick={onCopy}>
+                {copyText}
               </Button>
-            ) : (
-              <>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{url}</p>
-                <Button className="text-sm" variant="outline" onClick={onCopy}>
-                  {copyText}
-                </Button>
-              </>
-            )}
-          </div>
+            </>
+          )}
         </div>
       </div>
     </form>
